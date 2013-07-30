@@ -1,0 +1,71 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="Ponto.ExtratoView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    DataContext="{Binding Extrato, Source={StaticResource Locator}}"
+    shell:SystemTray.IsVisible="True" Margin="0,4,0,-4">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Nome: "/>
+                <TextBlock Text="{Binding Nome}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="RG: "/>
+                <TextBlock Text="{Binding RG}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Périodo: "/>
+                <TextBlock Text="{Binding Periodo}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Saldo: "/>
+                <TextBlock Text="{Binding Saldo}"/>
+            </StackPanel>
+        </StackPanel>
+        <ListBox Grid.Row="1" ItemsSource="{Binding Historico}" ItemContainerStyle="{StaticResource StrechListBoxItem}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.RowSpan="2" Text="{Binding Data, StringFormat=dd/MM/yyyy}" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Grid.Column="1" Text="{Binding Saldo}" FontSize="32" HorizontalAlignment="Center"></TextBlock>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Grid.Row="1">
+                            <TextBlock Text="{Binding Previsto, StringFormat=Prev: \{0\}}" Margin="5,0" VerticalAlignment="Top" />
+                            <TextBlock Text="{Binding Realizado, StringFormat=Real: \{0\}}" Margin="5,0" VerticalAlignment="Top" />
+                            <TextBlock Text="{Binding Diferenca, StringFormat=Dif: \{0\}}" Margin="5,0" VerticalAlignment="Top" />
+                        </StackPanel>
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <TextBlock Text="Saldo inicial: "/>
+            <TextBlock Text="{Binding SaldoInicial}"/>
+        </StackPanel>
+    </Grid>
+</phone:PhoneApplicationPage>
